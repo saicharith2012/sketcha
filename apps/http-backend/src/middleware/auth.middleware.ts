@@ -1,5 +1,5 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { env } from "../config";
+import { JWT_SECRET } from "@repo/backend-common/config";
 import { RequestHandler } from "express";
 
 export const authenticateUser: RequestHandler = async (req, res, next) => {
@@ -8,7 +8,7 @@ export const authenticateUser: RequestHandler = async (req, res, next) => {
     if (!token) {
       throw new Error("Invalid token.");
     }
-    const decodedToken = jwt.verify(token as string, env.JWT_SECRET);
+    const decodedToken = jwt.verify(token as string, JWT_SECRET as string);
 
     const userId = (decodedToken as JwtPayload).userId;
 
