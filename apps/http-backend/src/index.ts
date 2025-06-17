@@ -1,11 +1,3 @@
-import express from "express";
-
-const app = express();
-
-app.get("/read", async (req, res) => {
-  res.json({
-    message: "hi there",
-  });
-});
+import { app } from "./app";
 
 app.listen(3001);
