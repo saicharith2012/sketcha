@@ -5,14 +5,25 @@ import prisma from "@repo/db/client";
 
 export const createChatRoom: RequestHandler = async (req, res) => {
   try {
-    const { name } = req.body;
-    const parsed = CreateRoomSchema.safeParse(req.body);
+    const parsedData = CreateRoomSchema.safeParse(req.body);
 
-    if (!parsed.success) {
-      throw new Error(parsed.error.issues[0]?.message);
+    if (!parsedData.success) {
+      throw new Error(parsedData.error.issues[0]?.message);
     }
 
-    const roomCode = generateRoomCode(9);
+    const { name } = parsedData.data;
+
+    const room = await prisma.room.findFirst({
+      where: {
+        slug: name,
+      },
+    });
+
+    if(room) {
+      throw new Error("Room name already taken.")
+    }
+
+    const roomCode = generateRoomCode(12);
 
     const userId = req.userId;
 
@@ -25,7 +36,7 @@ export const createChatRoom: RequestHandler = async (req, res) => {
     });
 
     res.json({
-      message: "new room created.",
+      message: "New room created.",
       roomCode,
     });
   } catch (error) {
