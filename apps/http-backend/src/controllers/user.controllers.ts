@@ -14,6 +14,20 @@ export const signupUser: RequestHandler = async (req, res) => {
       throw new Error(parsed.error.issues[0]?.message);
     }
 
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [{ email }, { username }],
+      },
+    });
+
+    if (user) {
+      if (user.email === email) {
+        throw new Error("Email already in use.");
+      } else if (user.username === username) {
+        throw new Error("Username already taken.");
+      }
+    }
+
     await prisma.user.create({
       data: {
         email,
@@ -56,7 +70,7 @@ export const signinUser: RequestHandler = async (req, res) => {
 
     const token = jwt.sign(
       {
-        userId: user.id
+        userId: user.id,
       },
       JWT_SECRET as string
     );
