@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import generateRoomCode from "../utils/generateRoomCode";
 import { CreateRoomSchema } from "@repo/common/types";
+import prisma from "@repo/db/client";
 
 export const createChatRoom: RequestHandler = async (req, res) => {
   try {
@@ -11,11 +12,21 @@ export const createChatRoom: RequestHandler = async (req, res) => {
       throw new Error(parsed.error.issues[0]?.message);
     }
 
-    const roomId = generateRoomCode(9);
+    const roomCode = generateRoomCode(9);
+
+    const userId = req.userId;
+
+    await prisma.room.create({
+      data: {
+        slug: name,
+        adminId: userId as string,
+        roomCode,
+      },
+    });
 
     res.json({
       message: "new room created.",
-      roomId,
+      roomCode,
     });
   } catch (error) {
     res.json({
