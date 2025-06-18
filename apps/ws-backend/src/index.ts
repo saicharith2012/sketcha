@@ -56,7 +56,7 @@ wss.on("connection", (ws, request) => {
     if (parsedData.type === "join") {
       const user = users.find((user) => user.ws === ws);
       user?.rooms.push(parsedData.payload.roomId);
-      console.log(users);
+      // console.log(users);
     }
 
     if (parsedData.type === "leave") {
@@ -67,7 +67,7 @@ wss.on("connection", (ws, request) => {
       user.rooms = user.rooms.filter(
         (room) => room !== parsedData.payload.roomId
       );
-      console.log(users);
+      // console.log(users);
     }
 
     if (parsedData.type === "chat") {
