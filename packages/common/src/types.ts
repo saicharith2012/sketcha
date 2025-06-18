@@ -5,10 +5,10 @@ export const CreateUserSchema = z.object({
   username: z.string().min(3).max(20),
   password: z
     .string()
-    .regex(
-      new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$/),
-      "Password must contain atleast one uppercase, one lowercase, one digit and one speical character."
-    )
+    .regex(new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/), {
+      message:
+        "Password must contain at least one uppercase, one lowercase, one special character, and one number",
+    })
     .min(8),
 });
 
