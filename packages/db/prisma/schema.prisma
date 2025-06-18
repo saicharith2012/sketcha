@@ -13,7 +13,7 @@ model User {
   email    String @unique
   username String @unique
   password String
-  avatar   String
+  avatar   String?
   rooms    Room[]
   chats    Chat[]
 }
@@ -21,6 +21,7 @@ model User {
 model Room {
   id        Int      @id @default(autoincrement())
   slug      String   @unique
+  roomCode  String   @unique
   createdAt DateTime @default(now())
   adminId   String
   admin     User     @relation(fields: [adminId], references: [id])
