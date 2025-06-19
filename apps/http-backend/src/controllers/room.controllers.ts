@@ -46,3 +46,31 @@ export const createChatRoom: RequestHandler = async (req, res) => {
     });
   }
 };
+
+export const getRoomDetails: RequestHandler = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const room = await prisma.room.findFirst({
+      where: {
+        slug,
+      },
+    });
+
+    res.json({
+      room,
+      message: "Room details fetched succesfully",
+    });
+
+    if (!room) {
+      throw new Error("Room does not exist.");
+    }
+  } catch (error) {
+    res.json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error while fetching room details.",
+    });
+  }
+};
