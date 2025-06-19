@@ -6,23 +6,15 @@ export default function Home() {
   const roomIdRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        width: "100vw",
-      }}
-    >
+    <div className="flex justify-center items-center h-screen w-screen">
       <input
         ref={roomIdRef}
         type="text"
         placeholder="Enter room id"
-        style={{ padding: "10px" }}
+        className="p-2.5 m-2.5 border"
       ></input>
       <button
-        style={{ padding: "10px", cursor: "pointer" }}
+        className="py-2.5 px-5 cursor-pointer border"
         onClick={() => router.push(`/room/${roomIdRef.current?.value}`)}
       >
         Join

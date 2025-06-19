@@ -11,11 +11,11 @@ export default function Signup() {
   const passwordRef = useRef<HTMLInputElement>(null);
   return (
     <div>
-      <input ref={emailRef} type="email" placeholder="email"></input>
-      <input ref={usernameRef} type="text" placeholder="username"></input>
-      <input ref={passwordRef} type="password" placeholder="password"></input>
-      <input type="password" placeholder="confirm password"></input>
-      <button
+      <input className="p-2.5 border m-2.5" ref={emailRef} type="email" placeholder="email"></input>
+      <input className="p-2.5 border m-2.5" ref={usernameRef} type="text" placeholder="username"></input>
+      <input className="p-2.5 border m-2.5" ref={passwordRef} type="password" placeholder="password"></input>
+      <input className="p-2.5 border m-2.5" type="password" placeholder="confirm password"></input>
+      <button className="border px-5 py-2.5 cursor-pointer"
         onClick={async () => {
           const response = await axios.post(`${httpBackendUrl}/user/signup`, {
             email: emailRef.current?.value,

@@ -21,8 +21,8 @@ export default function ChatRoomClient({
         JSON.stringify({
           type: "join",
           payload: {
-            roomId: id
-          }
+            roomId: id,
+          },
         })
       );
       socket.onmessage = (e) => {
@@ -42,8 +42,14 @@ export default function ChatRoomClient({
         <div key={index}>{chat.message}</div>
       ))}
 
-      <input ref={newMessageRef} type="text" placeholder="message"></input>
+      <input
+        className="border p-2.5 m-2.5"
+        ref={newMessageRef}
+        type="text"
+        placeholder="message"
+      ></input>
       <button
+        className="border py-2.5 px-5 cursor-pointer"
         onClick={() => {
           socket?.send(
             JSON.stringify({

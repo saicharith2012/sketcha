@@ -10,9 +10,9 @@ export default function Signin() {
   const passwordRef = useRef<HTMLInputElement>(null);
   return (
     <div>
-      <input type="text" placeholder="username"></input>
-      <input type="password" placeholder="password"></input>
-      <button
+      <input className="border p-2.5 m-2.5" type="text" placeholder="username"></input>
+      <input className="border p-2.5 m-2.5" type="password" placeholder="password"></input>
+      <button className="border px-5 py-2.5 cursor-pointer"
         onClick={async () => {
           const response = await axios.post(`${httpBackendUrl}/user/signin`, {
             username: usernameRef.current?.value,
