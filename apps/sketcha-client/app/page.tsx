@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>hi there</div>;
+  return <div className="w-screen h-screen flex justify-center items-center">sketcha landing page.</div>;
 }
