@@ -78,7 +78,7 @@ wss.on("connection", (ws, request) => {
         data: {
           message,
           userId,
-          roomId,
+          roomId: parseInt(roomId),
         },
       });
 
